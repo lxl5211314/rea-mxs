@@ -127,7 +127,10 @@ def main() -> int:
         call("POST", f"/repos/{slug}/git/refs", {
             "ref": f"refs/heads/{args.branch}", "sha": commit["sha"],
         })
-    subprocess.run(["git", "update-ref", f"refs/remotes/origin/{args.branch}", commit["sha"]])
+    subprocess.run(
+        ["git", "update-ref", f"refs/remotes/origin/{args.branch}", commit["sha"]],
+        capture_output=True,
+    )  # best effort: the commit object only exists on the server
     print(f"done   {commit['sha']}")
     return 0
 
