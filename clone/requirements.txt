@@ -1,0 +1,14 @@
+soundcard>=0.4.3
+numpy>=1.26
+PySide6>=6.6
+openai>=1.40
+faster-whisper>=1.0.3        # 本地 ASR（可选，装了就不用云端转写）
+keyboard>=0.13.5             # 全局热键（可选）
+Pillow>=10                   # 截图
+qrcode>=7.4                  # 手机联动二维码（可选）
+pycaw>=20240210              # 启动时自动解除默认设备静音（可选）
+comtypes>=1.4                # pycaw / SAPI
+mediapipe>=1.2               # 动作捕捉（可选，默认关）
+opencv-contrib-python>=4.10  # mediapipe 依赖 / 摄像头
+pypdf>=5.0                   # 资料/简历.pdf 解析（本地，不上传）
+python-docx>=1.1             # 资料/简历.docx 解析（本地，不上传）

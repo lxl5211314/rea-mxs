@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>按键吞键自测 · msx-clone</title>
+<style>
+  body{background:#111;color:#e6e6e6;font:15px/1.6 "Segoe UI",system-ui;margin:0;padding:28px}
+  h1{font-size:19px;margin:0 0 6px}
+  p{color:#9aa4b2;margin:4px 0 18px}
+  #big{font:600 22px/1.4 Consolas,monospace;color:#7ee787;min-height:34px}
+  #log{font:13px/1.7 Consolas,monospace;white-space:pre-wrap;background:#0b0d10;border:1px solid #23272e;
+       border-radius:8px;padding:14px;height:52vh;overflow:auto;margin-top:14px}
+  .k{display:inline-block;background:#1c2028;border:1px solid #2f3540;border-radius:6px;padding:2px 7px;margin:2px}
+  .t{color:#6b7280}
+</style>
+<h1>按键吞键自测</h1>
+<p>点一下这个页面让它拿到焦点，然后按 <b>Ctrl+Shift+1</b>（或 S/2/3）。
+被全局热键吞掉时，下面<b>不会</b>出现任何记录；按普通键（比如 A）会照常记录。</p>
+<div id="big">等待按键…</div>
+<div id="log"></div>
+<script>
+const log = document.getElementById("log");
+const big = document.getElementById("big");
+let n = 0;
+function add(s, cls) {
+  n++;
+  const d = document.createElement("div");
+  const t = new Date().toLocaleTimeString();
+  d.innerHTML = `<span class="t">${t}</span>  ${s}`;
+  log.prepend(d);
+  if (n > 200) log.lastChild.remove();
+}
+add(`页面已就绪：按 Ctrl+Shift+1 应该<b>没有</b>反应，按 A 应该有`, "t");
+document.addEventListener("keydown", e => {
+  const combo = [e.ctrlKey && "Ctrl", e.shiftKey && "Shift", e.altKey && "Alt", e.metaKey && "Win",
+                 e.key === " " ? "Space" : e.key].filter(Boolean).join("+");
+  big.textContent = combo + `  (code=${e.code})`;
+  add(`keydown  <span class="k">${combo}</span>  code=${e.code} keyCode=${e.keyCode}`);
+  document.title = "有按键：" + combo;
+}, true);
+document.addEventListener("keyup", e => {
+  add(`keyup    ${e.key}  code=${e.code}`, "t");
+}, true);
+document.addEventListener("paste", e => add("paste 事件：粘贴会被页面看到", "t"), true);
+document.addEventListener("copy", e => add("copy 事件", "t"), true);
+document.addEventListener("visibilitychange", () => add("visibilitychange → hidden=" + document.hidden));
+window.addEventListener("blur", () => add("blur：窗口失焦（平台会当成切屏）"));
+window.addEventListener("focus", () => add("focus"));
+document.addEventListener("contextmenu", e => { add("右键菜单"); });
+</script>
