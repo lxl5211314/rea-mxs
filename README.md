@@ -1,4 +1,4 @@
-# aaa_msx — 面试侠逆向 + 自研替代品
+# rea-mxs — 面试侠逆向 + 自研替代品
 
 把 `C:\Program Files\msx-client`（面试侠桌面端，Tauri v2 + WebView2）完整逆向后，用 Python 重写一个自己的版本。
 
