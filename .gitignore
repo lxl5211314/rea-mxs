@@ -1,0 +1,24 @@
+# ---- secrets / local state ----
+.env
+clone/.env
+clone/ui_state.json
+clone/run.log
+*.log
+
+# ---- python ----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ---- model weights / browser profile (hundreds of MB) ----
+models/
+clone/browser-data/
+browser-data/
+
+# ---- reverse-engineering artifacts (third-party binaries & extracted assets) ----
+reverse/
+
+# ---- personal data / local shortcuts ----
+clone/资料/*.pdf
+*.lnk
